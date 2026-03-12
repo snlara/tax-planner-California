@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>2026 Wealth Optimizer v9.0</title>
+</head>
+<body class="bg-slate-100 p-4 md:p-8 font-sans text-slate-900">
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+        
+        <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-black uppercase tracking-tighter">Wealth Optimizer <span class="text-blue-400">9.0</span></h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">2026 Single Filer • California</p>
+            </div>
+            <div id="iraStatus" class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-slate-800 text-slate-300 border border-slate-700">Checking IRA...</div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            
+            <div class="p-8 space-y-6 border-r border-slate-100">
+                <section>
+                    <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Gross Revenue</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Annual W2 Salary ($)</label>
+                            <input type="number" id="w2" value="90000" oninput="uiSync()" class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl p-3 font-bold text-slate-800 focus:border-blue-500 outline-none transition-all">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-orange-600 mb-1">ST Capital Gains</label>
+                                <input type="number" id="stcg" value="0" oninput="uiSync()" class="w-full bg-orange-50/50 border-2 border-orange-100 rounded-xl p-2 font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-emerald-600 mb-1">LT Capital Gains</label>
+                                <input type="number" id="ltcg" value="100000" oninput="uiSync()" class="w-full bg-emerald-50/50 border-2 border-emerald-100 rounded-xl p-2 font-bold">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Shield Strategies</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <label class="text-xs font-bold text-slate-700 uppercase">Trad. 401(k)</label>
+                            <input type="number" id="v401k" value="24500" oninput="uiSync()" class="w-24 text-right bg-white border border-slate-200 rounded-lg p-1 text-sm font-black">
+                        </div>
+                        <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <label class="text-xs font-bold text-slate-700 uppercase">HSA Contribution</label>
+                            <input type="number" id="vHSA" value="4400" oninput="uiSync()" class="w-24 text-right bg-white border border-slate-200 rounded-lg p-1 text-sm font-black">
+                        </div>
+                        <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <label class="text-xs font-bold text-blue-700 uppercase">Trad. IRA</label>
+                            <input type="number" id="vIRA" value="7500" oninput="uiSync()" class="w-24 text-right bg-white border border-slate-200 rounded-lg p-1 text-sm font-black">
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="bg-slate-50 p-8 space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Net Take-Home</p>
+                        <h3 id="resTakeHome" class="text-3xl font-black text-slate-900 tracking-tighter">$0</h3>
+                        <p id="monthly" class="text-[10px] text-blue-600 font-bold mt-1">$0 / mo</p>
+                    </div>
+                    <div class="bg-slate-900 p-5 rounded-2xl shadow-xl">
+                        <p class="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1">Invested Assets</p>
+                        <h3 id="resDeferred" class="text-3xl font-black text-white tracking-tighter">$0</h3>
+                        <p class="text-[10px] text-slate-500 font-bold mt-1">Total in Accounts</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">2026 Tax Liability</h4>
+                    <div class="flex justify-between text-xs font-bold"><span class="text-slate-500">Fed Ordinary Tax</span><span id="taxFedOrd" class="text-red-500">$0</span></div>
+                    <div class="flex justify-between text-xs font-bold"><span class="text-slate-500">Fed LTCG Tax (Stacked)</span><span id="taxFedLtcg" class="text-red-500">$0</span></div>
+                    <div class="flex justify-between text-xs font-bold"><span class="text-slate-500">NIIT (3.8% Surtax)</span><span id="taxNiit" class="text-red-500">$0</span></div>
+                    <div class="flex justify-between text-xs font-bold"><span class="text-slate-500">CA State Tax (All Gains)</span><span id="taxCA" class="text-red-500">$0</span></div>
+                    <div class="flex justify-between text-xs font-bold border-b pb-2"><span class="text-slate-500">Payroll (FICA + SDI)</span><span id="taxPayroll" class="text-red-500">$0</span></div>
+                    <div class="flex justify-between text-sm font-black pt-1 uppercase"><span>Effective Rate</span><span id="taxRate" class="text-blue-600">0%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CONSTANTS = { fedStd: 16100, caStd: 5883, ssCap: 184500, ltcg0: 49450 };
+
+        function uiSync() {
+            const w2 = parseFloat(document.getElementById('w2').value) || 0;
+            const stcg = parseFloat(document.getElementById('stcg').value) || 0;
+            const ltcg = parseFloat(document.getElementById('ltcg').value) || 0;
+            const sK = parseFloat(document.getElementById('v401k').value) || 0;
+            const sH = parseFloat(document.getElementById('vHSA').value) || 0;
+            const sI = parseFloat(document.getElementById('vIRA').value) || 0;
+
+            // 1. IRA Phase-Out Logic
+            const magi = w2 + stcg - sK - sH;
+            let deductibleIRA = 0;
+            const status = document.getElementById('iraStatus');
+            if (magi <= 81000) { deductibleIRA = sI; status.innerText = "Full IRA Deduction"; status.className = "px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-900 text-emerald-300"; }
+            else if (magi < 91000) { deductibleIRA = sI * ((91000 - magi) / 10000); status.innerText = "Partial IRA Deduction"; status.className = "px-3 py-1 rounded-full text-[10px] font-black uppercase bg-orange-900 text-orange-300"; }
+            else { deductibleIRA = 0; status.innerText = "Non-Deductible IRA"; status.className = "px-3 py-1 rounded-full text-[10px] font-black uppercase bg-slate-800 text-slate-500"; }
+
+            // 2. Federal Ordinary Income
+            const ordTaxable = Math.max(0, (w2 + stcg) - sK - sH - deductibleIRA - CONSTANTS.fedStd);
+            const fedBrackets = [[12400, 0.1], [50400, 0.12], [105700, 0.22], [201775, 0.24], [256225, 0.32], [640600, 0.35], [Infinity, 0.37]];
+            let fedOrdTax = 0, prevF = 0;
+            fedBrackets.forEach(([high, rate]) => {
+                if (ordTaxable > prevF) { fedOrdTax += (Math.min(ordTaxable, high) - prevF) * rate; prevF = high; }
+            });
+
+            // 3. LTCG Stacking Logic
+            const spaceIn0 = Math.max(0, CONSTANTS.ltcg0 - ordTaxable);
+            const amt0 = Math.min(ltcg, spaceIn0);
+            const fedLtcgTax = (ltcg - amt0) * 0.15; // Simplified (assuming not hitting $545k bracket)
+
+            // 4. NIIT (3.8%) - MAGI over $200k
+            const niitMagi = magi + ltcg;
+            const niitTax = (niitMagi > 200000) ? Math.min(stcg + ltcg, niitMagi - 200000) * 0.038 : 0;
+
+            // 5. CA State Tax
+            const caTaxable = Math.max(0, (w2 + stcg + ltcg) - sK - CONSTANTS.caStd);
+            const caBrackets = [[11422, 0.01], [27078, 0.02], [42737, 0.04], [59326, 0.06], [74978, 0.08], [Infinity, 0.093]];
+            let caTax = 0, prevC = 0;
+            caBrackets.forEach(([high, rate]) => {
+                if (caTaxable > prevC) { caTax += (Math.min(caTaxable, high) - prevC) * rate; prevC = high; }
+            });
+
+            // 6. Payroll
+            const taxFica = (Math.min(w2, CONSTANTS.ssCap) * 0.062) + (w2 * 0.0145);
+            const taxSDI = w2 * 0.013;
+
+            const totalTax = fedOrdTax + fedLtcgTax + niitTax + caTax + taxFica + taxSDI;
+            const takeHome = (w2 + stcg + ltcg) - totalTax - (sK + sH + sI);
+
+            document.getElementById('resTakeHome').innerText = "$" + Math.round(takeHome).toLocaleString();
+            document.getElementById('monthly').innerText = "$" + Math.round(takeHome/12).toLocaleString() + " / mo";
+            document.getElementById('resDeferred').innerText = "$" + Math.round(sK + sH + sI).toLocaleString();
+            document.getElementById('taxFedOrd').innerText = "$" + Math.round(fedOrdTax).toLocaleString();
+            document.getElementById('taxFedLtcg').innerText = "$" + Math.round(fedLtcgTax).toLocaleString();
+            document.getElementById('taxNiit').innerText = "$" + Math.round(niitTax).toLocaleString();
+            document.getElementById('taxCA').innerText = "$" + Math.round(caTax).toLocaleString();
+            document.getElementById('taxPayroll').innerText = "$" + Math.round(taxFica + taxSDI).toLocaleString();
+            document.getElementById('taxRate').innerText = ((totalTax / (w2 + stcg + ltcg)) * 100).toFixed(1) + "%";
+        }
+        uiSync();
+    </script>
+</body>
+</html>
